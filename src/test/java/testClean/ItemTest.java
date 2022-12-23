@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperties;
 import util.ApiConfiguration;
 import util.GetProperties;
 
@@ -43,12 +44,12 @@ public class ItemTest {
     }
 
     @Test
-    @DisplayName("Verfy the test CRUD")
+    @DisplayName("Verfy the test CREATE")
     //@Description("This test case is to verify.......")
     @Epic("Todo.ly")
     @Feature("Login")
     @Owner("Clasur")
-    //@Link("")
+
     public void verifyCREATEItem() {
         DateTime currentDate = DateTime.now();
         String itemName = "" + currentDate.getYear();
@@ -68,6 +69,12 @@ public class ItemTest {
 
     }
     @Test
+    @DisplayName("Verfy the test UPDATE")
+
+    @Epic("Todo.ly")
+    @Feature("Login")
+    @Owner("Clasur")
+
     public void verifyUPDATEItem(){
         DateTime currentDate = DateTime.now();
         String itemName1 = "" + currentDate.getYear();
@@ -100,6 +107,12 @@ public class ItemTest {
     }
 
     @Test
+    @DisplayName("Verfy the test DELETE")
+
+    @Epic("Todo.ly")
+    @Feature("Login")
+    @Owner("Clasur")
+
     public void verifyDELETEItem(){
         DateTime currentDate = DateTime.now();
         String itemName2 = "" + currentDate.getYear();
