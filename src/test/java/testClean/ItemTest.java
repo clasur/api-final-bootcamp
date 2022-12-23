@@ -49,7 +49,7 @@ public class ItemTest {
     @Feature("Login")
     @Owner("Clasur")
     //@Link("")
-    public void verifyCRUDItem(){
+    public void verifyCREATEItem() {
         DateTime currentDate = DateTime.now();
         String itemName = "" + currentDate.getYear();
         itemName += currentDate.getMonthOfYear();
@@ -57,28 +57,78 @@ public class ItemTest {
         itemName += "TestItemCreate";
 
         //CREATE ITEM
-        body.put("Content",itemName);
-        body.put("ProjectId",4048707);
+        body.put("Content", itemName);
+        body.put("ProjectId", 4048707);
         requestInfo.setUrl(ApiConfiguration.CREATE_ITEM);
         requestInfo.setBody(body.toString());
 
-        response= FactoryRequest.make("post").send(requestInfo);
-        response.then().body("Content",equalTo(body.get("Content"))).statusCode(200);
-        int idItem=response.then().extract().path("Id");
+        response = FactoryRequest.make("post").send(requestInfo);
+        response.then().body("Content", equalTo(body.get("Content"))).statusCode(200);
 
+
+    }
+    @Test
+    public void verifyUPDATEItem(){
+        DateTime currentDate = DateTime.now();
+        String itemName1 = "" + currentDate.getYear();
+        itemName1 += currentDate.getMonthOfYear();
+        itemName1 += currentDate.getDayOfMonth();
+        itemName1 += "TestItemCreate";
+
+        //CREATE ITEM
+        body.put("Content", itemName1);
+        body.put("ProjectId", 4048707);
+        requestInfo.setUrl(ApiConfiguration.CREATE_ITEM);
+        requestInfo.setBody(body.toString());
+
+        response = FactoryRequest.make("post").send(requestInfo);
+        response.then().body("Content", equalTo(body.get("Content"))).statusCode(200);
+        int idItem = response.then().extract().path("Id");
         //UPDATE ITEM
-        itemName +="AndUpdate";
-        body.put("Content", itemName);
+        itemName1 += "AndUpdate";
+        body.put("Content", itemName1);
         requestInfo.setUrl(String.format(ApiConfiguration.UPDATE_ITEM, idItem));
         requestInfo.setBody(body.toString());
         response = FactoryRequest.make("put").send(requestInfo);
-        response.then().body("Content",equalTo(body.get("Content"))).statusCode(200);
+        response.then().body("Content", equalTo(body.get("Content"))).statusCode(200);
 
         //GET ITEM
-        requestInfo.setUrl(String.format(ApiConfiguration.READ_ITEM,idItem));
+        requestInfo.setUrl(String.format(ApiConfiguration.READ_ITEM, idItem));
         requestInfo.setBody(body.toString());
         response = FactoryRequest.make("get").send(requestInfo);
-        response.then().body("Content",equalTo(body.get("Content"))).statusCode(200);
+        response.then().body("Content", equalTo(body.get("Content"))).statusCode(200);
+    }
+
+    @Test
+    public void verifyDELETEItem(){
+        DateTime currentDate = DateTime.now();
+        String itemName2 = "" + currentDate.getYear();
+        itemName2 += currentDate.getMonthOfYear();
+        itemName2 += currentDate.getDayOfMonth();
+        itemName2 += "TestItemCreate";
+
+        //CREATE ITEM
+        body.put("Content", itemName2);
+        body.put("ProjectId", 4048707);
+        requestInfo.setUrl(ApiConfiguration.CREATE_ITEM);
+        requestInfo.setBody(body.toString());
+
+        response = FactoryRequest.make("post").send(requestInfo);
+        response.then().body("Content", equalTo(body.get("Content"))).statusCode(200);
+        int idItem = response.then().extract().path("Id");
+        //UPDATE ITEM
+        itemName2 += "AndUpdate";
+        body.put("Content", itemName2);
+        requestInfo.setUrl(String.format(ApiConfiguration.UPDATE_ITEM, idItem));
+        requestInfo.setBody(body.toString());
+        response = FactoryRequest.make("put").send(requestInfo);
+        response.then().body("Content", equalTo(body.get("Content"))).statusCode(200);
+
+        //GET ITEM
+        requestInfo.setUrl(String.format(ApiConfiguration.READ_ITEM, idItem));
+        requestInfo.setBody(body.toString());
+        response = FactoryRequest.make("get").send(requestInfo);
+        response.then().body("Content", equalTo(body.get("Content"))).statusCode(200);
 
         //DELETE ITEM
         requestInfo.setUrl(String.format(ApiConfiguration.DELETE_ITEM ,idItem));
